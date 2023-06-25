@@ -37,7 +37,7 @@ template <typename T>
 class CppPtr
 {
 public:
-	CppPtr(nullptr_t) :
+	CppPtr(std::nullptr_t) :
 	_ptr(nullptr),
 	_n(-1)
 	{
