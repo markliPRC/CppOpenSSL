@@ -8,17 +8,17 @@
 
 namespace CppOpenSSL
 {
-template <typename T>
-inline T* CppAlloc(int n = 1)
+template <typename T, typename U = T>
+inline U* CppAlloc(int n = 1)
 {
 	T* ptr = new T[n]();
-	return ptr;
+	return reinterpret_cast<U*>(ptr);
 }
 
-template <typename T>
-inline void CppFree(T* ptr)
+template <typename T, typename U = T>
+inline void CppFree(U* ptr)
 {
-	delete[] ptr;
+	delete[] reinterpret_cast<T*>(ptr);
 }
 
 template <typename T>
@@ -105,6 +105,12 @@ public:
 	}
 
 public:
+	template <typename U>
+	U* Cast()
+	{
+		return reinterpret_cast<U*>(_ptr);
+	}
+
 	T* Release()
 	{
 		T* ptr = _ptr;
